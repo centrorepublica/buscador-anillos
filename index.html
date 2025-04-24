@@ -11,7 +11,7 @@
       background-color: #f4f4f4;
       text-align: center;
     }
-    input, button {
+    input, button, select {
       padding: 0.5rem;
       margin-top: 1rem;
       font-size: 1rem;
@@ -28,32 +28,74 @@
 </head>
 <body>
   <h1>Buscador de Anillos de Palomas</h1>
-  <p>Ingresá el número del anillo para saber el propietario</p>
+  <p>Ingresá el número del anillo y seleccioná el año</p>
   <input type="number" id="numeroAnillo" placeholder="Ej: 1736055" />
+  <br />
+  <select id="anio">
+    <option value="2024">2024</option>
+  </select>
   <br />
   <button onclick="buscarPropietario()">Buscar</button>
   <div id="resultado" class="resultado"></div>
 
   <script>
-    // Lista de propietarios con rangos de anillos
-    const propietarios = [
-      {
-        nombre: "Luis Cariddi",
-        desde: 1736001,
-        hasta: 1736100
-      }
-      // Podés agregar más así:
-      // { nombre: "Otro Propietario", desde: 1736101, hasta: 1736200 },
-    ];
+    const datos = {
+      "2024": [
+        ["Ivan Grabijolas", 1736061, 1736100],
+        ["Luisito P", 1736101, 1736300],
+        ["Luis Cariddi", 1736301, 1736380],
+        ["Pablo Perez", 1736381, 1736400],
+        ["Alejandro Monetti", 1736401, 1736450],
+        ["Gerardo Peralta", 1736451, 1736500],
+        ["Julio Moreira", 1736501, 1736540],
+        ["Hugo Andrada", 1736541, 1736570],
+        ["Jorge Moroni", 1736571, 1736600],
+        ["Mario Trobato", 1736601, 1736640],
+        ["Trobato padre", 1736641, 1736680],
+        ["Dario Figueroa", 1736681, 1736700],
+        ["Juan Rossi", 1736701, 1736740],
+        ["Victor miranda", 1736741, 1736760],
+        ["Hnos Pereyo", 1736761, 1736800],
+        ["Luis Suarez", 1736801, 1736850],
+        ["Raul DelaTorre", 1736851, 1736900],
+        ["Hnos Rinaldi y Konstantinides", 1736901, 1737000],
+        ["Cristian Lepore", 1737001, 1737035],
+        ["Hernan Gulisano", 1737036, 1737070],
+        ["Hnos Rinaldi y Konstantinides", 1737101, 1737260],
+        ["Sergio Acietto", 1737261, 1737300],
+
+        ["Luis Cariddi", 1797001, 1797020],
+        ["Sergio Accietto", 1797021, 1797030],
+        ["Ariel Charra", 1797031, 1797060],
+        ["Luis Suarez", 1797061, 1797080],
+        ["Mario Trobato", 1797081, 1797090],
+        ["Ivan Grabijolas", 1797091, 1797100],
+        ["Hnos Rinaldi y Konstantinides", 1797101, 1797120],
+        ["Ruben Luca", 1797121, 1797140],
+        ["Julio Moreyra", 1797141, 1797160],
+
+        ["Jorge Moroni", 1811521, 1811535],
+        ["Hnos Pereyo", 1811536, 1811545],
+        ["Raul DelaTorre", 1811546, 1811565],
+        ["Javier Guevara", 1811566, 1811625],
+        ["Julio Gigena", 1811626, 1811635],
+        ["Hernan Gulisano", 1811636, 1811645],
+        ["Ariel Charra", 1811646, 1811650],
+        ["Lucas Konstantinides", 1811651, 1811655],
+        ["Luis Cariddi", 1811656, 1811660]
+      ]
+    };
 
     function buscarPropietario() {
       const numero = parseInt(document.getElementById("numeroAnillo").value);
+      const anio = document.getElementById("anio").value;
       const resultado = document.getElementById("resultado");
-      
-      const propietario = propietarios.find(p => numero >= p.desde && numero <= p.hasta);
-      
-      if (propietario) {
-        resultado.textContent = `Este anillo pertenece a: ${propietario.nombre}`;
+
+      const lista = datos[anio];
+      const match = lista.find(([nombre, desde, hasta]) => numero >= desde && numero <= hasta);
+
+      if (match) {
+        resultado.textContent = `Este anillo pertenece a: ${match[0]}`;
         resultado.classList.remove("no-encontrado");
       } else {
         resultado.textContent = "Anillo no encontrado en la base de datos.";
