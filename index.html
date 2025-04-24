@@ -24,9 +24,14 @@
     .no-encontrado {
       color: red;
     }
+    .logo {
+      max-width: 150px;
+      margin-bottom: 1rem;
+    }
   </style>
 </head>
 <body>
+  <img src="19c603de-6b48-446e-bc3f-d3c584edced6.png" alt="Logo del club" class="logo" />
   <h1>Buscador de Anillos de Palomas</h1>
   <p>Ingresá el número del anillo y seleccioná el año</p>
   <input type="number" id="numeroAnillo" placeholder="Ej: 1736055" />
@@ -90,6 +95,12 @@
       const numero = parseInt(document.getElementById("numeroAnillo").value);
       const anio = document.getElementById("anio").value;
       const resultado = document.getElementById("resultado");
+
+      if (!numero || isNaN(numero)) {
+        resultado.textContent = "Por favor ingresá un número válido.";
+        resultado.classList.add("no-encontrado");
+        return;
+      }
 
       const lista = datos[anio];
       const match = lista.find(([nombre, desde, hasta]) => numero >= desde && numero <= hasta);
