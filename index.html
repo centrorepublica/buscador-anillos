@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buscador de Anillos de Palomas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f4f4f4;
+      text-align: center;
+    }
+    input, button {
+      padding: 0.5rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+    .resultado {
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      color: green;
+    }
+    .no-encontrado {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Buscador de Anillos de Palomas</h1>
+  <p>Ingresá el número del anillo para saber el propietario</p>
+  <input type="number" id="numeroAnillo" placeholder="Ej: 1736055" />
+  <br />
+  <button onclick="buscarPropietario()">Buscar</button>
+  <div id="resultado" class="resultado"></div>
+
+  <script>
+    // Lista de propietarios con rangos de anillos
+    const propietarios = [
+      {
+        nombre: "Luis Cariddi",
+        desde: 1736001,
+        hasta: 1736100
+      }
+      // Podés agregar más así:
+      // { nombre: "Otro Propietario", desde: 1736101, hasta: 1736200 },
+    ];
+
+    function buscarPropietario() {
+      const numero = parseInt(document.getElementById("numeroAnillo").value);
+      const resultado = document.getElementById("resultado");
+      
+      const propietario = propietarios.find(p => numero >= p.desde && numero <= p.hasta);
+      
+      if (propietario) {
+        resultado.textContent = `Este anillo pertenece a: ${propietario.nombre}`;
+        resultado.classList.remove("no-encontrado");
+      } else {
+        resultado.textContent = "Anillo no encontrado en la base de datos.";
+        resultado.classList.add("no-encontrado");
+      }
+    }
+  </script>
+</body>
+</html>
